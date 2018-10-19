@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/home/.oh-my-zsh
+export ZSH=/home/ryosuke.maki/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -53,11 +53,16 @@ plugins=(git)
 
 # User configuration
 
-# export PATH="/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
-# export MANPATH="/usr/local/man:$MANPATH"
-export PATH="/home/pleiades/java/8/jre/bin:$PATH"
-export PATH="/home/apache-maven-3.3.9-bin/apache-maven-3.3.9/bin:$PATH"
+export PATH="/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
+export MANPATH="/usr/local/man:$MANPATH"
 
+# Java Path
+export PATH="/home/pleiades/java/8/bin:$PATH"
+# Maven Path
+export PATH="/home/ryosuke.maki/apache-maven-3.5.2/bin:$PATH"
+export PATH="/usr/local/bin:$PATH"
+export no_proxy="vms.develop.sbisec.co.jp,10.100.35.3,m5-gitlab01.jp.sbibits.com"
+export TZ=JST-9
 source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
@@ -85,45 +90,39 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# �R�}���h�~�X���C��
 setopt correct
-
-# cd�R�}���h���ȗ����āA�f�B���N�g�����݂̂̓��͂ňړ�
 setopt auto_cd
-
-
-# ���̃^�[�~�i���ƃq�X�g���[�����L
 setopt share_history
-
-# �q�X�g���[�ɏd�����\�����Ȃ�
 setopt histignorealldups
 
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
 
-# backspace,delete�L�[���g�����悤��
-stty erase ^H
-bindkey "^[[3~" delete-char
+# don't work backspace vim
+bindkey '^?' backward-delete-char
+bindkey '^h' backward-delete-char
+stty erase "^?"
 
-# �⊮
-autoload -Uz compinit
-compinit
-
-# ���͂����R�}���h�����݂����A���f�B���N�g�����ƈ��v�����Ȃ��A�f�B���N�g���� cd ����
-# ���F /usr/bin �Ɠ��͂����� /usr/bin �f�B���N�g���Ɉړ�
-setopt auto_cd
-
-# �����ݒ肷���ƁA .. �Ƃ������͂�����1���̃f�B���N�g���Ɉړ��ł����̂Łc�c
-# 2���A3���ɂ��ړ��ł����悤�ɂ���
+# personal alias
 alias ...='cd ../..'
 alias ....='cd ../../..'
+alias susa='/home/ryosuke.maki/ssh/ssh.sh susa'
+alias baldr='/home/ryosuke.maki/ssh/ssh.sh baldr'
+alias frigg='/home/ryosuke.maki/ssh/ssh.sh frigg'
+alias chimaira='/home/ryosuke.maki/ssh/ssh.sh chimaira'
+alias tproxy='/home/ryosuke.maki/ssh/login_script/login_tproxy.sh'
+alias marble='/home/ryosuke.maki/ssh/ssh.sh marble'
+alias apc='/home/ryosuke.maki/ssh/ssh.sh apc'
+alias admin='/home/ryosuke.maki/ssh/ssh.sh admin'
+alias marble-build='mvn clean install -T4 -DskipTest=true'
+alias apcproxy1='ssh -L 2101:localhost:2101 -l sbiidev 192.168.107.101'
+alias apcproxy2='ssh -L 2102:localhost:2102 -l sbiidev 192.168.107.101'
 
-# <Tab> �Ńp�X���̕⊮�������\���������ƁA
-# ������ <Tab> �������ƌ��₩���p�X�����I���ł����悤�ɂȂ�
-# �������I�Ԃɂ� <Tab> �� Ctrl-N,B,F,P
+# tmux auto run config
 zstyle ':completion:*:default' menu select=1
 export TMUX_TMPDIR=/var/run/tmux
+
 
 is_screen_running() {
     # tscreen also uses this varariable.
